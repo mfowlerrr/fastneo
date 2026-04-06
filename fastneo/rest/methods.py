@@ -54,7 +54,7 @@ class NodeRestMethods[T]:
             raise DoesNotExist(msg)
 
     def _validate_update_data(self, data: dict):
-        props = dict(self.node.__all_properties__)
+        props = self.node._get_properties()
 
         allowed_fields = set(props.keys())
         data_fields = set(data.keys())
@@ -74,7 +74,7 @@ class NodeRestMethods[T]:
             raise ValidationError("Update data cannot be empty")
 
     def _validate_data(self, data: dict):
-        props = dict(self.node.__all_properties__)
+        props = self.node._get_properties()
         allowed_fields = {name for name in props}
 
         required_fields = {name for name, prop in props.items() if prop.required}

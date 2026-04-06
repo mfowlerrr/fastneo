@@ -18,3 +18,11 @@ class APINodeMetaclass(type(StructuredNode)):
 
 class APINode(StructuredNode, metaclass=APINodeMetaclass):
     primary_key: str = ""
+
+    @classmethod
+    def _get_properties(cls) -> dict:
+        return dict(cls.__all_properties__)
+
+    @classmethod
+    def _get_relationships(cls) -> dict:
+        return dict(cls.__all_relationships__)
