@@ -22,14 +22,10 @@ def neo4j_container():
     container.stop()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def neomodel_db(neo4j_container: Neo4jContainer):
     host = neo4j_container.get_container_host_ip()
     port = neo4j_container.get_exposed_port(7687)
-    print(neo4j_container.username, " + ", neo4j_container.password)
 
     conf = config.get_config()
     conf.database_url = f"bolt://neo4j:testpassword@{host}:{port}"
-    from neomodel import db
-
-    return db
