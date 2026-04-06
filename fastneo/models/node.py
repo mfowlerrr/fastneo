@@ -9,9 +9,10 @@ class APINodeMetaclass(type(StructuredNode)):
                 raise AttributeError(
                     f"Primary key '{primary_key}' is not defined as a property in class '{name}'"
                 )
-            prop = dct[primary_key]
 
-            dct[primary_key] = type(prop)(unique_index=True)
+            prop = dct[primary_key]
+            prop.unique_index = True
+
         return super().__new__(cls, name, bases, dct)
 
 
